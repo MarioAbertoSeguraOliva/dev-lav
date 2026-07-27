@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Project Overview - [Placeholder Project Name]</title>
+    <style>
+        /* Basic reset and styles for a modern dashboard feel */
+        :root {
+            --charcoal: #2c3e50;
+            --light-gray: #ecf0f1;
+            --accent-blue: #3498db;
+            --success-green: #2ecc71;
+            --warning-yellow: #f39c12;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f8; color: #333; margin: 0; padding: 0; }
+        .container { max-width: 1200px; margin: 40px auto; padding: 20px; background-color: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+        header { text-align: center; margin-bottom: 40px; padding: 30px 0; background-color: var(--accent-blue); color: white; border-radius: 8px; }
+        header h1 { margin: 0; font-size: 2.5em; letter-spacing: 1px; }
+        header p { opacity: 0.9; margin-top: 5px; font-weight: 300; }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-left: 15px;
+        }
+        .status-active { background-color: var(--success-green); color: white; }
+        .status-beta { background-color: var(--warning-yellow); color: #333; }
+        
+        /* Metrics Grid */
+        .metrics-grid { display: flex; justify-content: space-around; margin-bottom: 40px; padding: 20px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
+        .metric-card { text-align: center; max-width: 30%; padding: 15px; }
+        .metric-value { font-size: 2em; color: var(--charcoal); font-weight: 600; display: block; margin-bottom: .2em; }
+        .metric-label { font-size: 0.9em; color: #777; text-transform: capitalize; }
+
+        /* Key Sections/Cards */
+        .key-sections { display: flex; gap: 20px; justify-content: space-between; margin-top: 30px; }
+        .section-card { flex: 1; padding: 25px; border: 1px solid #ddd; border-radius: 6px; transition: box-shadow 0.3s; cursor: pointer; background-color: var(--light-gray); height: 100%; }
+        .section-card:hover { box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); transform: translateY(-3px); }
+        .section-card h3 { color: var(--accent-blue); margin-top: 0; font-size: 1.4em;}
+        .section-card p { color: #666; }
+
+        /* Redirection/Interactivity */
+        #projectDescription p { line-height: 1.6; color: #555; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Header / Project Banner -->
+    <header>
+        <h1>Project Aurora AI Engine</h1>
+        <span class="status-badge status-active" id="projectStatus">ACTIVE</span>
+        <p>The next generation platform for decentralized AI models and multi-agent orchestration.</p>
+    </header>
+
+    <!-- Project Description -->
+    <section id="projectDescription" style="margin-bottom: 30px;">
+        <h2>Overview</h2>
+        <p>Project Aurora is designed to create a single, unified interface for high-value AI capabilities. It abstracts the complexity of interacting with various models (GPT, Claude, Gemma), providers (Ollama, custom endpoints), and technologies like MCPs and agents. Our goal is to provide enterprises with an easy-to-adopt gateway, resulting in strong hiring value by proving mastery across diverse modern tech stacks.</p>
+        <p>By centralizing access and enforcing robust governance within a Docker/Kubernetes ecosystem, we manage risk while maximizing feature velocity. This view page serves as the primary single source of truth for all stakeholders regarding the project's health and roadmap.</p>
+    </section>
+
+    <!-- Key Metrics Grid -->
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <span class="metric-value">1.2M+</span>
+            <span class="metric-label">Images Processed YTD</span>
+        </div>
+        <div class="metric-card">
+            <span class="metric-value">95%</span>
+            <span class="metric-label">Service Uptime (SLA)</span>
+        </div>
+        <div class="metric-card">
+            <span class="metric-value">V3.1.0</span>
+            <span class="metric-label">Current Release Version</span>
+        </div>
+    </div>
+
+    <!-- Interactive/Key Sections -->
+    <h2>Quick Links & Ecosystem Components</h2>
+    <div class="key-sections">
+        <div class="section-card" data-link="/repo">
+            <h3><0xF0><0x9F><0x97><0x84>️ Code Repository</h3>
+            <p>Access the main codebase, branching strategies, and PR workflows here. <em>(Link to Git/GitHub)</em></p>
+            <a href="#" style="display: block; margin-top: 15px; color: var(--accent-blue); text-decoration: none; font-weight: bold;">&rarr; View Codebase</a>
+        </div>
+
+        <div class="section-card" data-link="/deployment">
+            <h3>🚀 Deployment Dashboard</h3>
+            <p>Monitor the live Docker/K8s deployment status, logs, and scaling metrics. <em>(Link to K8s Portal)</em></p>
+            <a href="#" style="display: block; margin-top: 15px; color: var(--accent-blue); text-decoration: none; font-weight: bold;">&rarr; Check Status</a>
+        </div>
+
+        <div class="section-card" data-link="/docs">
+            <h3>📚 Documentation & Design</h3>
+            <p>Refer to architecture diagrams, API specs, and the AI service implementation guides. <em>(Link to Wiki)</em></p>
+            <a href="#" style="display: block; margin-top: 15px; color: var(--accent-blue); text-decoration: none; font-weight: bold;">&rarr; View Docs</a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // JavaScript for handling the "redirection" effect
+    document.querySelectorAll('.section-card').forEach(card => {
+        const link = card.querySelector('a');
+        if (link) {
+            link.addEventListener('click', function(e) {
+                // Prevent default navigation if we want to handle client-side routing
+                // For this mockup, we'll just log the intent and simulate a modern redirect.
+                console.log("--- Project Navigation Event ---");
+                console.log("Attempting to navigate for resource:", this.getAttribute('href') || card.dataset.link);
+                alert("Simulating Redirection: Navigating to " + (this.getAttribute('href') || card.dataset.link) + ". This would typically trigger a SPA router change.");
+            });
+        }
+    });
+
+</script>

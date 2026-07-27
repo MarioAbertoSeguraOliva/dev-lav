@@ -1,0 +1,153 @@
+[
+  {
+    "dateStart": "2011-09",
+    "dateEnd": "2017-07",
+    "title": "B.Sc. in Software Engineering",
+    "organization": "Universidad de Las Palmas de Gran Canaria",
+    "location": "Las Palmas, Spain",
+    "category": "Education",
+    "description": "Five-year comprehensive degree program in Software Engineering covering algorithms, data structures, databases, operating systems, software architecture, and web development.",
+    "skills": ["Java", "C#", "PHP", "HTML", "CSS", "MySQL", "Python", "Software Architecture"],
+    "highlights": [
+      "Completed a 5-year engineering program",
+      "Gained foundational knowledge in full-stack development and software design patterns"
+    ]
+  },
+  {
+    "dateStart": "2017-08",
+    "dateEnd": "2021-10",
+    "title": "Career Break",
+    "organization": "Personal",
+    "location": "Spain",
+    "category": "Other",
+    "description": "Extended career break due to health issues and the COVID-19 pandemic.",
+    "skills": [],
+    "highlights": [
+      "Recovered from long-term illness",
+      "Began self-studying web development during pandemic"
+    ]
+  },
+  {
+    "dateStart": "2021-01",
+    "dateEnd": null,
+    "title": "freeCodeCamp (In Progress)",
+    "organization": "freeCodeCamp.org",
+    "location": "Online",
+    "category": "Education",
+    "description": "Self-paced web development curriculum covering responsive design, JavaScript algorithms, front-end libraries, and APIs.",
+    "skills": ["JavaScript", "HTML", "CSS", "React", "Redux"],
+    "highlights": [
+      "Completed responsive web design certification",
+      "Studying JavaScript algorithms and data structures",
+      "Learning front-end development with React and Redux"
+    ]
+  },
+  {
+    "dateStart": "2021-11",
+    "dateEnd": "2022-08",
+    "title": "Full Stack Developer",
+    "organization": "Zec Telecom",
+    "location": "Spain",
+    "category": "Work",
+    "description": "Developed and maintained full-stack web applications for a telecommunications company, working across frontend, backend, and database layers.",
+    "skills": ["Java", "Laravel", "PHP", "Python", "MySQL", "HTML", "CSS", "Unity", "C#"],
+    "highlights": [
+      "Built internal tools and web applications using Laravel and PHP",
+      "Worked with multiple programming languages including Java, Python, and C#",
+      "Managed MySQL databases and contributed to backend API development"
+    ]
+  },
+  {
+    "dateStart": "2022-09",
+    "dateEnd": "2025-11",
+    "title": "Career Break",
+    "organization": "Personal",
+    "location": "Spain",
+    "category": "Other",
+    "description": "Extended career break due to health issues. Continued self-study in web development technologies.",
+    "skills": ["React", "Node.js", "JavaScript"],
+    "highlights": [
+      "Recovered from illness",
+      "Self-studied React, Node.js, and modern JavaScript"
+    ]
+  },
+  {
+  "dateStart": "2025-10",
+  "dateEnd": "2025-11",
+  "title": "Docker & Containerization",
+  "organization": "Self-Learning",
+  "location": "Remote",
+  "category": "Education",
+  "description": "Studied Docker fundamentals and adopted containerized development workflows for full-stack applications. Learned image creation, Docker Compose, networking, volumes, and development environments.",
+  "skills": [
+    "Docker",
+    "Docker Compose",
+    "Containerization",
+    "Linux",
+    "DevOps"
+  ],
+  "highlights": [
+    "Containerized React and Node.js applications",
+    "Configured Docker Compose for development environments",
+    "Worked with volumes, networking, and multi-container applications",
+    "Integrated Docker into personal development workflow"
+  ]
+},
+  {
+    "dateStart": "2025-12",
+    "dateEnd": "2026-06",
+    "title": "Full Stack Developer",
+    "organization": "Oasis Fragrances",
+    "location": "Remote",
+    "category": "Work",
+    "description": "Led development of an Inventory Management System (IMS) and multiple web applications for a fragrance company. Built e-commerce, admin dashboards, and an Android app for corporate data access.",
+    "skills": ["React", "JavaScript", "WordPress", "WooCommerce", "Odoo", "Android", "Node.js"],
+    "highlights": [
+      "Built IMS (Inventory Management System) from scratch",
+      "Synchronized WooCommerce with WordPress using multiple plugins",
+      "Developed e-commerce website for the company",
+      "Created Android app for real-time corporate data access",
+      "Built admin panel integrating Odoo, WhatsApp Web, and live data",
+      "Managed inventory management workflows end-to-end"
+    ]
+  },
+  {
+  "dateStart": "2026-01",
+  "dateEnd": null,
+  "title": "AI-Assisted Software Development",
+  "organization": "Self-Learning",
+  "location": "Remote",
+  "category": "Education",
+  "description": "Integrated modern AI coding assistants into the software development lifecycle for architecture design, debugging, refactoring, documentation, testing, and rapid prototyping.",
+  "skills": [
+    "OpenAI Codex",
+    "Claude",
+    "Gemini",
+    "Prompt Engineering",
+    "AI-Assisted Development",
+    "LLMs"
+  ],
+  "highlights": [
+    "Adopted AI-assisted development workflows",
+    "Used Claude for architecture and code reviews",
+    "Used Gemini for research and implementation support",
+    "Used Codex for code generation, debugging, and refactoring",
+    "Applied prompt engineering techniques to improve development productivity"
+  ]
+},
+  {
+    "dateStart": "2026-06",
+    "dateEnd": null,
+    "title": "Portfolio & Job Search",
+    "organization": "Personal",
+    "location": "Remote",
+    "category": "Project",
+    "description": "Building portfolio website and preparing for next full-stack role. Strengthening React, Node.js, and MongoDB skills through personal projects.",
+    "skills": ["React", "Node.js", "Express", "MongoDB", "Bootstrap"],
+    "highlights": [
+      "Designed and developed this portfolio website",
+      "Planning FindMyJob, Admin Panel, and Todo App projects",
+      "Preparing technical interview materials"
+    ]
+  }
+]

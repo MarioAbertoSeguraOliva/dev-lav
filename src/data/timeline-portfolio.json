@@ -1,0 +1,50 @@
+[
+  {
+    "date": "2011-09",
+    "title": "Software Engineering - Computer Science",
+    "organization": "Universidad de Las Palmas de Gran Canaria",
+    "description": "5-year degree in Software Engineering — Java, PHP, databases, architecture."
+  },
+  {
+    "date": "2021-11",
+    "title": "Full Stack Developer",
+    "organization": "Zec Telecom",
+    "description": "Built web applications using Laravel, Java, Python, and MySQL."
+  },
+  {
+    "date": "2025-12",
+    "title": "Full Stack Developer",
+    "organization": "Oasis Fragrances",
+    "description": "Led development of IMS, e-commerce, admin panels, and Android app."
+  },
+  {
+    "date": "2026-02",
+    "title": "IMS — Inventory Management System",
+    "organization": "Oasis Fragrances",
+    "description": "End-to-end inventory management system built from scratch."
+  },
+  {
+    "date": "2026-03",
+    "title": "E-commerce Platform",
+    "organization": "Oasis Fragrances",
+    "description": "Full e-commerce website with WooCommerce integration and plugin management."
+  },
+  {
+    "date": "2026-04",
+    "title": "Admin Dashboard",
+    "organization": "Oasis Fragrances",
+    "description": "Admin panel integrating Odoo ERP, WhatsApp Web, and live data."
+  },
+  {
+    "date": "2026-05",
+    "title": "Oasis Mobile App",
+    "organization": "Oasis Fragrances",
+    "description": "Android app for real-time corporate data and inventory access."
+  },
+  {
+    "date": "2026-06",
+    "title": "Portfolio & Job Search",
+    "organization": "Personal",
+    "description": "Building portfolio site and preparing for next full-stack role."
+  }
+]

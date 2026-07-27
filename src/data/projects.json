@@ -1,0 +1,35 @@
+[
+  {
+    "title": "FindMyJob",
+    "description": "Automated job search platform that scrapes listings from multiple websites and provides a personalized dashboard for tracking applications.",
+    "image": "/images/projects//favicon.ico",
+    "stack": ["React", "Node.js", "Express", "MongoDB"],
+    "status": "Planned",
+    "link": null,
+    "github": null,
+    "additionalInfo": "This project is designed to automate the job search process by scraping job listings from various websites and providing users with a personalized dashboard to track their applications.",
+    "date": null
+  },
+  {
+    "title": "Admin Panel",
+    "description": "Full-featured admin dashboard with user management, role-based access control, content management, and data visualization.",
+    "image": "/images/projects//favicon.ico",
+    "stack": ["React", "Node.js", "Express", "MongoDB"],
+    "status": "Planned",
+    "link": null,
+    "github": null,
+    "additionalInfo": "This project is an admin panel that allows administrators to manage users, content, and settings for a web application. It includes features such as user authentication, role-based access control, and data visualization.",
+    "date": null
+  },
+  {
+    "title": "Todo App",
+    "description": "Task management application with creation, editing, deletion, and categorization features built with the MERN stack.",
+    "image": "/images/projects//favicon.ico",
+    "stack": ["React", "Node.js", "Express", "MongoDB"],
+    "status": "Planned",
+    "link": null,
+    "github": null,
+    "additionalInfo": "This project is a todo app that helps users manage their tasks efficiently. It includes features such as task creation, editing, deletion, and categorization.",
+    "date": null
+  }
+]
