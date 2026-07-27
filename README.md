@@ -1,70 +1,151 @@
-# Getting Started with Create React App
+# 💼 Developer Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern personal portfolio and CV website built with React to showcase my professional experience, technical skills, and software projects.
 
-## Available Scripts
+The goal of this website is to provide recruiters and collaborators with an overview of my background, featured projects, and the technologies I work with.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🚀 Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Responsive modern design
+- Project showcase
+- Professional timeline
+- About Me section
+- Contact information
+- Downloadable CV (planned)
+- Docker support for local development
+- Ready for continuous deployment
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🛠️ Tech Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- React
+- JavaScript
+- HTML5
+- CSS3
+- Docker
+- Docker Compose
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 📂 Project Structure
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+src/
+├── components/
+├── constants/
+├── data/
+├── hooks/
+├── pages/
+└── App.js
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+public/
+├── images/
+└── assets/
+```
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## ⚙️ Running Locally
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Prerequisites
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Node.js 20+
+- npm
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Clone the repository:
 
-## Learn More
+```bash
+git clone https://github.com/<your-username>/<repository>.git
+cd <repository>
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Install dependencies:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm install
+```
 
-### Code Splitting
+Start the development server:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+npm start
+```
 
-### Analyzing the Bundle Size
+The application will be available at:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```
+http://localhost:3000
+```
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🐳 Running with Docker
 
-### Advanced Configuration
+Build and start the application:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```bash
+docker compose up --build
+```
 
-### Deployment
+Stop the application:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+docker compose down
+```
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🌐 Live Website
+
+The portfolio is available at:
+
+```
+Coming soon
+```
+
+After deployment, replace this with your production URL, for example:
+
+```
+https://your-portfolio.pages.dev
+```
+
+or
+
+```
+https://yourdomain.dev
+```
+
+---
+
+## 📸 Sections
+
+- Home
+- About Me
+- Projects
+- Timeline
+- Contact
+
+---
+
+## 📈 Future Improvements
+
+- Dark/Light mode
+- Project filtering
+- Blog
+- Certifications
+- Interactive project pages
+- Internationalization (EN/ES)
+- Resume download
+- Analytics
+- SEO improvements
+
+---
+
+## 📄 License
+
+This project is available for portfolio purposes.
+
+Please do not copy the content, branding, or personal information without permission.
