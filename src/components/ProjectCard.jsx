@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Github } from 'react-bootstrap-icons';
 import { badgeColors } from '../constants/theme';
 
 const getBadgeColor = (label) => badgeColors[label] || '#ccc';
@@ -134,6 +135,31 @@ function ProjectCard({ project, darkMode }) {
               }}
             >
               View Project
+            </a>
+          )}
+
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                flex: 1,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                textAlign: 'center',
+                backgroundColor: darkMode ? '#555' : '#6c757d',
+                color: '#fff',
+                padding: '12px',
+                borderRadius: '8px',
+                textDecoration: 'none',
+                fontWeight: '600',
+              }}
+            >
+              <Github size={16} />
+              GitHub
             </a>
           )}
 

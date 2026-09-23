@@ -57,4 +57,9 @@ export const badgeColors = {
   HTML: '#E34F26',
   Docker: '#2496ED',
   Git: '#F05032',
+  Vite: '#646CFF',
+  SQLite: '#003B57',
+  'Docker Compose': '#2496ED',
+  'GitHub Actions': '#2088FF',
+  Nginx: '#009639',
 };
