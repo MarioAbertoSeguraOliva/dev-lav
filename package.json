@@ -22,6 +22,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false",
     "test:watch": "react-scripts test",
+    "preview": "npm run build && wrangler dev",
+    "deploy": "npm run build && wrangler deploy",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -41,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "wrangler": "4.114.0"
   }
 }

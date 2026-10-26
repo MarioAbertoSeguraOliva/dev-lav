@@ -18,7 +18,7 @@ The goal of this website is to provide recruiters and collaborators with an over
 - Automated regression tests
 - Downloadable CV (planned)
 - Docker support for local development
-- Deployed on Cloudflare Workers with an SPA routing fallback
+- Cloudflare Workers deployment target with a Worker-based SPA routing fallback
 
 ---
 
@@ -67,7 +67,7 @@ worker/
 
 - Node.js 18+ to run the application and tests (verified with Node 18.12.1)
 - npm
-- Node.js 22+ if you need to run Wrangler 4.114 locally for deployment
+- Node.js 22+ to run Wrangler 4.114.0 commands (`preview` and `deploy`), which is installed as a development dependency
 
 Clone the repository:
 
@@ -146,7 +146,7 @@ The current production URL remains on `workers.dev`; no custom domain is configu
 
 ## ☁️ Cloudflare Deployment and SPA Routing
 
-The application is a client-side React SPA deployed as static assets on Cloudflare Workers. `wrangler.jsonc` points Wrangler at the `build/` directory and configures a small Worker as the SPA fallback:
+The repository configures the application as a client-side React SPA on Cloudflare Workers. `wrangler.jsonc` points Wrangler at the `build/` directory and configures a small Worker as the SPA fallback:
 
 ```jsonc
 "main": "worker/index.js",
@@ -166,17 +166,21 @@ Cloudflare serves an existing static asset before invoking the Worker. For reque
 
 Application routes must not contain a dot. Any dotted path is treated as an asset so that missing files keep returning `404`; add an explicit route exception to `worker/index.js` before introducing such a route.
 
-The configuration and routing behavior were validated locally with Wrangler 4.114 in a Node 22 container (`wrangler dev`): application routes returned the SPA shell, existing assets returned their real content, and missing asset paths returned `404`. No production deployment was performed.
+The configuration and routing behavior were validated locally with Wrangler 4.114.0 in a Node 22 container (`wrangler dev`): application routes returned the SPA shell, existing assets returned their real content, and missing asset paths returned `404`. No production deployment was performed.
 
-Deployment configuration is not yet fully integrated into `main`:
+Install the toolchain with `npm ci`. The deployment commands are:
 
-- `wrangler.jsonc` and `worker/index.js` exist locally.
-- The `wrangler` devDependency and `deploy` / `preview` scripts currently exist only on the `cloudflare/workers-autoconfig` branch (PR #1).
-- PR #1 must be updated/reconciled so it includes the Worker, assets binding, and SPA routing instead of overwriting them, and then merged through an authorized review.
-- A local `npm run deploy` will not work from `main` until the Wrangler dependency and scripts from PR #1 are integrated.
-- Wrangler 4.114 requires Node.js 22+, while the application itself builds and tests successfully on Node 18.12.1.
+```bash
+npm run preview   # build, then serve locally with wrangler dev
+npm run deploy    # build, then deploy to production with wrangler deploy
+```
 
-Until an authorized deployment runs, the live site continues to serve the previous build without the routing and content fixes.
+- `wrangler` 4.114.0 is pinned as a development dependency in `package.json` and `package-lock.json`.
+- Wrangler 4.114.0 requires Node.js 22+; the application itself still builds and tests on Node 18.12.1.
+- `npm run preview` is local-only and does not upload or modify production.
+- `npm run deploy` targets production and requires an authenticated Wrangler session with access to the Cloudflare account that owns the `dev-lav` Worker.
+
+Local validation is not production verification. No deployment was performed as part of the tooling integration, and production has not yet been updated with the Milestone 1 routing and content fixes. Until an authorized deployment runs, the live site continues to serve the previous build without those fixes.
 
 ---
 
