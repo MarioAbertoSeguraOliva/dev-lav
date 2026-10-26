@@ -166,7 +166,7 @@ Cloudflare serves an existing static asset before invoking the Worker. For reque
 
 Application routes must not contain a dot. Any dotted path is treated as an asset so that missing files keep returning `404`; add an explicit route exception to `worker/index.js` before introducing such a route.
 
-The configuration and routing behavior were validated locally with Wrangler 4.114.0 in a Node 22 container (`wrangler dev`): application routes returned the SPA shell, existing assets returned their real content, and missing asset paths returned `404`. No production deployment was performed.
+The configuration and routing behavior were validated locally with Wrangler 4.114.0 in a Node 22 container (`wrangler dev`): application routes returned the SPA shell, existing assets returned their real content, and missing asset paths returned `404`. No production deployment was performed during that local validation.
 
 Install the toolchain with `npm ci`. The deployment commands are:
 
@@ -180,7 +180,7 @@ npm run deploy    # build, then deploy to production with wrangler deploy
 - `npm run preview` is local-only and does not upload or modify production.
 - `npm run deploy` targets production and requires an authenticated Wrangler session with access to the Cloudflare account that owns the `dev-lav` Worker.
 
-Local validation is not production verification. No deployment was performed as part of the tooling integration, and production has not yet been updated with the Milestone 1 routing and content fixes. Until an authorized deployment runs, the live site continues to serve the previous build without those fixes.
+Local validation is not production verification. Production was updated on 2026-10-26 by deployment `38209270-9992-482e-8179-350e6cc90b81`, which runs commit `23a268f`. The live HTML, JavaScript, and CSS match the local build of that commit, and the Worker routing behavior described above is active. Deployment provenance was confirmed in the Cloudflare dashboard.
 
 ---
 
