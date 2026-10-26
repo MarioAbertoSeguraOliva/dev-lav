@@ -2,7 +2,7 @@
   {
     "title": "FindMyJob",
     "description": "Automated job search platform that scrapes listings from multiple websites and provides a personalized dashboard for tracking applications.",
-    "image": "/images/projects//favicon.ico",
+    "image": "/images/projects/defaultImage.png",
     "stack": ["React", "Node.js", "Express", "MongoDB"],
     "status": "Planned",
     "link": null,
@@ -13,7 +13,7 @@
   {
     "title": "Admin Panel",
     "description": "Full-featured admin dashboard with user management, role-based access control, content management, and data visualization.",
-    "image": "/images/projects//favicon.ico",
+    "image": "/images/projects/defaultImage.png",
     "stack": ["React", "Node.js", "Express", "MongoDB"],
     "status": "Planned",
     "link": null,
@@ -24,7 +24,7 @@
   {
     "title": "Todo App",
     "description": "Task management application with creation, editing, deletion, and categorization features built with the MERN stack.",
-    "image": "/images/projects//favicon.ico",
+    "image": "/images/projects/defaultImage.png",
     "stack": ["React", "Node.js", "Express", "MongoDB"],
     "status": "Planned",
     "link": null,

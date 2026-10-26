@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "dev-lav",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-07-27",
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "build",
+    "binding": "ASSETS"
+  },
+  // A Worker is used instead of assets.not_found_handling: "single-page-application"
+  // because that mode rewrites every unmatched path (including missing .js, .css,
+  // and image requests) to index.html with a 200 status. This Worker serves the SPA
+  // shell only for application routes; missing asset paths keep their 404 response.
+  "compatibility_flags": [
+    "nodejs_compat"
+  ]
+}

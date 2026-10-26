@@ -1,20 +1,83 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Github } from 'react-bootstrap-icons';
 import { badgeColors } from '../constants/theme';
 
+const FALLBACK_PROJECT_IMAGE = '/images/projects/defaultImage.png';
+
+// "Active" is used by DentalFlow's v0.1.0 PoC but does not evidence completion.
+// Keep the source data intact and present it with the most conservative truthful label.
+const statusLabels = {
+  active: 'In Development',
+  completed: 'Completed',
+  'in development': 'In Development',
+  'in progress': 'In Development',
+  planned: 'Planned',
+};
+
+const statusStyles = {
+  Completed: {
+    backgroundColor: '#d1e7dd',
+    color: '#0a3622',
+    border: '1px solid #a3cfbb',
+  },
+  'In Development': {
+    backgroundColor: '#fff3cd',
+    color: '#664d03',
+    border: '1px solid #ffe69c',
+  },
+  Planned: {
+    backgroundColor: '#e2e3e5',
+    color: '#41464b',
+    border: '1px solid #c4c8cb',
+  },
+};
+
 const getBadgeColor = (label) => badgeColors[label] || '#ccc';
+
+const getStatusLabel = (status) => {
+  if (typeof status !== 'string' || !status.trim()) {
+    return '';
+  }
+
+  const normalizedStatus = status.trim().toLowerCase();
+  return statusLabels[normalizedStatus] || status.trim();
+};
 
 function ProjectCard({ project, darkMode }) {
   const [showMore, setShowMore] = useState(false);
+  const initialImage = project.image || FALLBACK_PROJECT_IMAGE;
+  const [imageSrc, setImageSrc] = useState(initialImage);
+  const [imageFailed, setImageFailed] = useState(false);
 
   const cardBg = darkMode ? '#2b2b2b' : '#fff';
   const textColor = darkMode ? '#fff' : '#000';
   const mutedColor = darkMode ? '#ccc' : '#666';
   const dateColor = darkMode ? '#bbb' : '#777';
   const borderColor = darkMode ? '#444' : '#ddd';
+  const statusLabel = getStatusLabel(project.status);
+  const statusStyle = statusStyles[statusLabel] || {
+    backgroundColor: darkMode ? '#444' : '#e9ecef',
+    color: darkMode ? '#fff' : '#333',
+    border: `1px solid ${borderColor}`,
+  };
+
+  useEffect(() => {
+    setImageSrc(initialImage);
+    setImageFailed(false);
+  }, [initialImage]);
+
+  const handleImageError = () => {
+    if (imageSrc !== FALLBACK_PROJECT_IMAGE) {
+      setImageSrc(FALLBACK_PROJECT_IMAGE);
+      return;
+    }
+
+    setImageFailed(true);
+  };
 
   return (
     <div
+      data-testid="project-card"
       style={{
         backgroundColor: cardBg,
         borderRadius: '12px',
@@ -34,11 +97,13 @@ function ProjectCard({ project, darkMode }) {
         e.currentTarget.style.transform = 'translateY(0)';
       }}
     >
-      {project.image && (
+      {!imageFailed ? (
         <img
-          src={project.image}
-          alt={project.title}
+          src={imageSrc}
+          alt={`${project.title} project preview`}
           loading="lazy"
+          onError={handleImageError}
+          data-testid="project-image"
           style={{
             width: '100%',
             height: '180px',
@@ -46,6 +111,24 @@ function ProjectCard({ project, darkMode }) {
             objectPosition: 'top',
           }}
         />
+      ) : (
+        <div
+          role="img"
+          aria-label={`${project.title} image unavailable`}
+          data-testid="project-image-placeholder"
+          style={{
+            width: '100%',
+            height: '180px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: darkMode ? '#333' : '#f0f0f0',
+            color: mutedColor,
+            fontSize: '0.9rem',
+          }}
+        >
+          Image unavailable
+        </div>
       )}
 
       <div
@@ -66,6 +149,26 @@ function ProjectCard({ project, darkMode }) {
         >
           {project.title}
         </h2>
+
+        {statusLabel && (
+          <div style={{ marginBottom: '12px' }}>
+            <span
+              data-testid="project-status"
+              style={{
+                display: 'inline-block',
+                padding: '5px 12px',
+                borderRadius: '999px',
+                fontSize: '0.75rem',
+                fontWeight: '700',
+                letterSpacing: '0.03em',
+                textTransform: 'uppercase',
+                ...statusStyle,
+              }}
+            >
+              {statusLabel}
+            </span>
+          </div>
+        )}
 
         <p
           style={{

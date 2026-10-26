@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { useTheme } from '../hooks/useTheme';
 
 const sectionStyles = (theme) => ({
@@ -133,12 +134,12 @@ const Home = ({ darkMode }) => {
               </p>
 
               <div style={s.ctaContainer}>
-                <a href="/projects" style={s.ctaPrimary}>
+                <Link to="/projects" style={s.ctaPrimary}>
                   View Projects
-                </a>
-                <a href="/about" style={s.ctaSecondary}>
+                </Link>
+                <Link to="/about" style={s.ctaSecondary}>
                   About Me
-                </a>
+                </Link>
               </div>
 
               <div style={s.stackSection}>
