@@ -39,7 +39,8 @@
     "stack": ["React", "TypeScript", "Vite", "Node.js", "Express", "SQLite", "Docker", "Docker Compose", "GitHub Actions", "Nginx"],
     "status": "Active",
     "link": null,
-    "github": "https://github.com/MarioAbertoSeguraOliva/dentalflow",
+    "github": null,
+    "note": "Source not public — details on request",
     "additionalInfo": "v0.1.0 — DevOps focus: Code → GitHub → CI → Docker → Deployment → Health Check. Current functionality: minimal landing page, system status dashboard, backend health endpoint, real SQLite health check, Dockerized frontend/backend, GitHub Actions CI/CD.",
     "date": null
   }

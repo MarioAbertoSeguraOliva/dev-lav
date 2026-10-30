@@ -59,6 +59,25 @@ describe('ProjectCard', () => {
     );
   });
 
+  test('renders an optional note and no GitHub link when github is absent', () => {
+    render(
+      <ProjectCard
+        project={{
+          ...baseProject,
+          note: 'Source not public — details on request',
+        }}
+        darkMode={false}
+      />
+    );
+
+    expect(screen.getByTestId('project-note')).toHaveTextContent(
+      'Source not public — details on request'
+    );
+    expect(
+      screen.queryByRole('link', { name: /github/i })
+    ).not.toBeInTheDocument();
+  });
+
   test.each([
     ['Active', 'In Development'],
     ['In Development', 'In Development'],

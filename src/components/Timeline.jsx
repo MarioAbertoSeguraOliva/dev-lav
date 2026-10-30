@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/Timeline.css';
 
 const categoryColors = {
   Education: '#1976d2',
@@ -22,19 +23,17 @@ function Timeline({ items, darkMode }) {
   const lineColor = darkMode ? '#444' : '#ccc';
 
   return (
-    <div style={{ position: 'relative', padding: '20px 0' }}>
+    <div
+      className="timeline"
+      style={{
+        '--timeline-line-color': lineColor,
+        '--timeline-card-bg': cardBg,
+        '--timeline-card-border': borderColor,
+        '--timeline-dot-ring': darkMode ? '#1e1e1e' : '#fff',
+      }}
+    >
       {/* Vertical line */}
-      <div
-        style={{
-          position: 'absolute',
-          left: '50%',
-          top: 0,
-          bottom: 0,
-          width: '2px',
-          backgroundColor: lineColor,
-          transform: 'translateX(-50%)',
-        }}
-      />
+      <div className="timeline__line" aria-hidden="true" />
 
       {items.map((item, index) => {
         const isLeft = index % 2 === 0;
@@ -47,43 +46,22 @@ function Timeline({ items, darkMode }) {
 
         return (
           <div
-            key={index}
-            style={{
-              display: 'flex',
-              justifyContent: isLeft ? 'flex-end' : 'flex-start',
-              paddingLeft: isLeft ? 0 : 'calc(50% + 20px)',
-              paddingRight: isLeft ? 'calc(50% + 20px)' : 0,
-              marginBottom: '40px',
-              position: 'relative',
-            }}
+            key={`${item.title}-${item.dateStart}-${index}`}
+            className={`timeline__row ${
+              isLeft ? 'timeline__row--left' : 'timeline__row--right'
+            }`}
+            data-testid="timeline-row"
           >
             {/* Dot on timeline */}
             <div
-              style={{
-                position: 'absolute',
-                left: '50%',
-                top: '20px',
-                width: '12px',
-                height: '12px',
-                borderRadius: '50%',
-                backgroundColor: catColor,
-                border: `2px solid ${darkMode ? '#1e1e1e' : '#fff'}`,
-                transform: 'translateX(-50%)',
-                zIndex: 1,
-              }}
+              className="timeline__dot"
+              style={{ backgroundColor: catColor }}
+              aria-hidden="true"
+              data-testid="timeline-dot"
             />
 
             {/* Card */}
-            <div
-              style={{
-                backgroundColor: cardBg,
-                border: `1px solid ${borderColor}`,
-                borderRadius: '12px',
-                padding: '20px',
-                width: '100%',
-                maxWidth: '400px',
-              }}
-            >
+            <div className="timeline__card" data-testid="timeline-card">
               {label && (
                 <span
                   style={{
@@ -125,13 +103,7 @@ function Timeline({ items, darkMode }) {
                 {item.organization}
               </p>
 
-              <p
-                style={{
-                  fontSize: '0.8rem',
-                  color: mutedColor,
-                  margin: '0 0 10px',
-                }}
-              >
+              <p className="timeline__date" style={{ color: mutedColor }}>
                 {dateRange}
                 {item.location && ` · ${item.location}`}
               </p>

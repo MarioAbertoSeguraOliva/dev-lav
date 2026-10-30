@@ -214,6 +214,23 @@ function ProjectCard({ project, darkMode }) {
           </p>
         )}
 
+        {project.note && (
+          <p
+            data-testid="project-note"
+            style={{
+              margin: '0 0 16px',
+              padding: '10px 12px',
+              borderRadius: '8px',
+              border: `1px dashed ${borderColor}`,
+              color: mutedColor,
+              fontSize: '0.85rem',
+              lineHeight: '1.4',
+            }}
+          >
+            {project.note}
+          </p>
+        )}
+
         <div
           style={{
             marginTop: 'auto',

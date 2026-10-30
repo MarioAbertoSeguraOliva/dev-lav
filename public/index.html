@@ -23,12 +23,21 @@
     />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>Mario Segura — Software Engineer</title>
+    <style>
+      html[data-theme='dark'],
+      html[data-theme='dark'] body {
+        background-color: #0f0f0f;
+      }
+    </style>
     <script>
-      (function() {
-        var dark = localStorage.getItem('darkMode');
-        if (dark === 'true') {
-          document.documentElement.style.backgroundColor = '#0f0f0f';
-          document.body.style.backgroundColor = '#0f0f0f';
+      (function () {
+        try {
+          var stored = localStorage.getItem('darkMode');
+          if (stored !== null && JSON.parse(stored) === true) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+          }
+        } catch (error) {
+          // Invalid or unavailable storage: keep the default light theme.
         }
       })();
     </script>
