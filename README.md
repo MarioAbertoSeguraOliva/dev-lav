@@ -193,7 +193,7 @@ Project content lives in `src/data/projects.json`. The `status` values are mappe
 - `In Development` / `In progress` → `In Development`
 - `Planned` → `Planned`
 
-Planned projects remain visible and are clearly labelled. Entries without genuine screenshots use `/images/projects/defaultImage.png`.
+Planned projects remain visible and are clearly labelled. Entries without genuine screenshots set `"image": null`, which renders a labelled placeholder artwork (project name, stack, and an explicit "no screenshot available" caption) instead of implying a real screenshot. `defaultImage.png` is only used as a fallback when a declared image fails to load.
 
 ---
 

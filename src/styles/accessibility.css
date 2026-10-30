@@ -1,0 +1,19 @@
+/* Keyboard-only skip link: hidden until it receives focus. */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: -9999px;
+  z-index: 1000;
+  padding: 12px 16px;
+  border-radius: 0 0 8px 0;
+  background-color: #1976d2;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  left: 0;
+  outline: 3px solid #fff;
+  outline-offset: -6px;
+}
