@@ -180,7 +180,7 @@ npm run deploy    # build, then deploy to production with wrangler deploy
 - `npm run preview` is local-only and does not upload or modify production.
 - `npm run deploy` targets production and requires an authenticated Wrangler session with access to the Cloudflare account that owns the `dev-lav` Worker.
 
-Local validation is not production verification. No deployment was performed as part of the tooling integration, and production has not yet been updated with the Milestone 1 routing and content fixes. Until an authorized deployment runs, the live site continues to serve the previous build without those fixes.
+Production currently runs commit `3945d53` (Cloudflare version ID `40e24b13-7703-4214-a19c-819c8ced0148`) and serves `main.e2bb35f2.js` and `main.dd0a6956.css`. The P0 portfolio fixes and SPA routing have been deployed and verified. This dependency-security candidate has passed local validation but has not been deployed; local validation is not production verification.
 
 ---
 
