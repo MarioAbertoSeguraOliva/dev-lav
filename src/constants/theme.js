@@ -45,6 +45,46 @@ export const socialLinks = {
   github: 'https://github.com/MarioAbertoSeguraOliva',
 };
 
+const normalizeHex = (hex) => {
+  const value = hex.replace('#', '');
+  return value.length === 3
+    ? value
+        .split('')
+        .map((char) => char + char)
+        .join('')
+    : value;
+};
+
+const relativeLuminance = (hex) => {
+  const value = normalizeHex(hex);
+  const channels = [0, 2, 4]
+    .map((offset) => parseInt(value.substr(offset, 2), 16) / 255)
+    .map((channel) =>
+      channel <= 0.03928
+        ? channel / 12.92
+        : Math.pow((channel + 0.055) / 1.055, 2.4)
+    );
+
+  return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
+};
+
+export const getContrastRatio = (foreground, background) => {
+  const a = relativeLuminance(foreground);
+  const b = relativeLuminance(background);
+  const lighter = Math.max(a, b);
+  const darker = Math.min(a, b);
+  return (lighter + 0.05) / (darker + 0.05);
+};
+
+// Black or white, whichever reads better on the given background. The worst
+// case for this choice is a mid-grey, where the winning option still reaches
+// roughly 4.58:1, so the result always meets WCAG AA for normal text.
+export const getReadableTextColor = (background) =>
+  getContrastRatio('#000000', background) >=
+  getContrastRatio('#ffffff', background)
+    ? '#000000'
+    : '#ffffff';
+
 export const badgeColors = {
   React: '#61DAFB',
   'Node.js': '#3C873A',

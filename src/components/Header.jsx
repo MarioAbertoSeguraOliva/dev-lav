@@ -13,6 +13,7 @@ function Header({ darkMode, toggleTheme }) {
       variant={darkMode ? 'dark' : 'light'}
       expand="lg"
       sticky="top"
+      aria-label="Main"
       style={{ boxShadow: '0 2px 4px rgba(0,0,0,0.1)', zIndex: 999 }}
     >
       <Container>
