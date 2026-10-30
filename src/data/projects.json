@@ -2,7 +2,7 @@
   {
     "title": "FindMyJob",
     "description": "Automated job search platform that scrapes listings from multiple websites and provides a personalized dashboard for tracking applications.",
-    "image": "/images/projects/defaultImage.png",
+    "image": null,
     "stack": ["React", "Node.js", "Express", "MongoDB"],
     "status": "Planned",
     "link": null,
@@ -13,7 +13,7 @@
   {
     "title": "Admin Panel",
     "description": "Full-featured admin dashboard with user management, role-based access control, content management, and data visualization.",
-    "image": "/images/projects/defaultImage.png",
+    "image": null,
     "stack": ["React", "Node.js", "Express", "MongoDB"],
     "status": "Planned",
     "link": null,
@@ -24,7 +24,7 @@
   {
     "title": "Todo App",
     "description": "Task management application with creation, editing, deletion, and categorization features built with the MERN stack.",
-    "image": "/images/projects/defaultImage.png",
+    "image": null,
     "stack": ["React", "Node.js", "Express", "MongoDB"],
     "status": "Planned",
     "link": null,
@@ -35,7 +35,7 @@
   {
     "title": "DentalFlow",
     "description": "Deployment PoC for a dental management platform, focused on demonstrating a production-oriented CI/CD pipeline rather than business functionality.",
-    "image": "/images/projects/defaultImage.png",
+    "image": null,
     "stack": ["React", "TypeScript", "Vite", "Node.js", "Express", "SQLite", "Docker", "Docker Compose", "GitHub Actions", "Nginx"],
     "status": "Active",
     "link": null,

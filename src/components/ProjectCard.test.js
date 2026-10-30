@@ -45,7 +45,7 @@ describe('ProjectCard', () => {
     expect(screen.getByText('Image unavailable')).toBeInTheDocument();
   });
 
-  test('uses the default image when a project has no image', () => {
+  test('shows placeholder artwork when a project has no image', () => {
     render(
       <ProjectCard
         project={{ ...baseProject, image: undefined }}
@@ -53,10 +53,8 @@ describe('ProjectCard', () => {
       />
     );
 
-    expect(screen.getByTestId('project-image')).toHaveAttribute(
-      'src',
-      '/images/projects/defaultImage.png'
-    );
+    expect(screen.queryByTestId('project-image')).not.toBeInTheDocument();
+    expect(screen.getByTestId('project-artwork')).toBeInTheDocument();
   });
 
   test('renders an optional note and no GitHub link when github is absent', () => {
@@ -93,6 +91,34 @@ describe('ProjectCard', () => {
 
     expect(screen.getByTestId('project-status')).toHaveTextContent(
       expectedLabel
+    );
+  });
+
+  test('picks an accessible text color for each stack badge', () => {
+    render(
+      <ProjectCard
+        project={{ ...baseProject, stack: ['React', 'Express'] }}
+        darkMode={false}
+      />
+    );
+
+    // React's cyan needs dark text; Express black needs light text.
+    expect(screen.getByText('React')).toHaveStyle({ color: '#000000' });
+    expect(screen.getByText('Express')).toHaveStyle({ color: '#ffffff' });
+  });
+
+  test('shows labelled placeholder artwork when a project has no screenshot', () => {
+    render(
+      <ProjectCard
+        project={{ ...baseProject, image: null }}
+        darkMode={false}
+      />
+    );
+
+    expect(screen.queryByTestId('project-image')).not.toBeInTheDocument();
+    expect(screen.getByTestId('project-artwork')).toHaveAttribute(
+      'aria-label',
+      'Example Project: placeholder artwork, no screenshot available'
     );
   });
 });
