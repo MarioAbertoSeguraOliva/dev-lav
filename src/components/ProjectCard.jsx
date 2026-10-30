@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useId, useState } from 'react';
 import { Github } from 'react-bootstrap-icons';
-import { badgeColors } from '../constants/theme';
+import { badgeColors, getReadableTextColor } from '../constants/theme';
+import ProjectArtwork from './ProjectArtwork';
 
 const FALLBACK_PROJECT_IMAGE = '/images/projects/defaultImage.png';
 
@@ -44,6 +45,7 @@ const getStatusLabel = (status) => {
 };
 
 function ProjectCard({ project, darkMode }) {
+  const detailsId = useId();
   const [showMore, setShowMore] = useState(false);
   const initialImage = project.image || FALLBACK_PROJECT_IMAGE;
   const [imageSrc, setImageSrc] = useState(initialImage);
@@ -52,7 +54,7 @@ function ProjectCard({ project, darkMode }) {
   const cardBg = darkMode ? '#2b2b2b' : '#fff';
   const textColor = darkMode ? '#fff' : '#000';
   const mutedColor = darkMode ? '#ccc' : '#666';
-  const dateColor = darkMode ? '#bbb' : '#777';
+  const dateColor = darkMode ? '#bbb' : '#595959';
   const borderColor = darkMode ? '#444' : '#ddd';
   const statusLabel = getStatusLabel(project.status);
   const statusStyle = statusStyles[statusLabel] || {
@@ -97,7 +99,9 @@ function ProjectCard({ project, darkMode }) {
         e.currentTarget.style.transform = 'translateY(0)';
       }}
     >
-      {!imageFailed ? (
+      {!project.image ? (
+        <ProjectArtwork project={project} />
+      ) : !imageFailed ? (
         <img
           src={imageSrc}
           alt={`${project.title} project preview`}
@@ -182,24 +186,28 @@ function ProjectCard({ project, darkMode }) {
         </p>
 
         <div style={{ marginBottom: '16px' }}>
-          {project.stack.map((label) => (
-            <span
-              key={label}
-              style={{
-                display: 'inline-block',
-                backgroundColor: getBadgeColor(label),
-                color: '#fff',
-                padding: '5px 10px',
-                borderRadius: '999px',
-                fontSize: '0.75rem',
-                marginRight: '6px',
-                marginBottom: '6px',
-                fontWeight: '600',
-              }}
-            >
-              {label}
-            </span>
-          ))}
+          {project.stack.map((label) => {
+            const badgeColor = getBadgeColor(label);
+
+            return (
+              <span
+                key={label}
+                style={{
+                  display: 'inline-block',
+                  backgroundColor: badgeColor,
+                  color: getReadableTextColor(badgeColor),
+                  padding: '5px 10px',
+                  borderRadius: '999px',
+                  fontSize: '0.75rem',
+                  marginRight: '6px',
+                  marginBottom: '6px',
+                  fontWeight: '600',
+                }}
+              >
+                {label}
+              </span>
+            );
+          })}
         </div>
 
         {project.date && (
@@ -284,6 +292,9 @@ function ProjectCard({ project, darkMode }) {
           )}
 
           <button
+            type="button"
+            aria-expanded={showMore}
+            aria-controls={detailsId}
             onClick={() => setShowMore(!showMore)}
             style={{
               flex: 1,
@@ -300,19 +311,19 @@ function ProjectCard({ project, darkMode }) {
           </button>
         </div>
 
-        {showMore && (
-          <div
-            style={{
-              marginTop: '20px',
-              borderTop: `1px solid ${borderColor}`,
-              paddingTop: '15px',
-              lineHeight: '1.6',
-              textAlign: 'left',
-            }}
-          >
-            {project.additionalInfo}
-          </div>
-        )}
+        <div
+          id={detailsId}
+          hidden={!showMore}
+          style={{
+            marginTop: '20px',
+            borderTop: `1px solid ${borderColor}`,
+            paddingTop: '15px',
+            lineHeight: '1.6',
+            textAlign: 'left',
+          }}
+        >
+          {project.additionalInfo}
+        </div>
       </div>
     </div>
   );

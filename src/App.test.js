@@ -81,8 +81,12 @@ describe('Direct route rendering', () => {
 });
 
 describe('Projects data and cards', () => {
-  test('every project image points at an existing public asset', () => {
+  test('every declared project image points at an existing public asset', () => {
     projects.forEach((project) => {
+      if (project.image === null) {
+        return;
+      }
+
       expect(project.image).toMatch(/^\/images\/projects\/[^/]+$/);
 
       const assetPath = path.join(
@@ -95,7 +99,7 @@ describe('Projects data and cards', () => {
     });
   });
 
-  test('renders every project card with a non-empty image path', () => {
+  test('renders every project card with artwork or a real image', () => {
     renderAt('/projects');
 
     projects.forEach((project) => {
@@ -104,13 +108,23 @@ describe('Projects data and cards', () => {
       ).toBeInTheDocument();
     });
 
-    const images = screen.getAllByTestId('project-image');
-    expect(images).toHaveLength(projects.length);
+    const images = screen.queryAllByTestId('project-image');
+    const artwork = screen.getAllByTestId('project-artwork');
+
+    // Every card shows exactly one visual: a real screenshot or placeholder art.
+    expect(images.length + artwork.length).toBe(projects.length);
 
     images.forEach((image) => {
       const src = image.getAttribute('src');
       expect(src).toBeTruthy();
       expect(src).toMatch(/^\/images\/projects\/[^/]+$/);
+    });
+
+    artwork.forEach((placeholder) => {
+      expect(placeholder).toHaveAttribute('role', 'img');
+      expect(placeholder.getAttribute('aria-label')).toMatch(
+        /no screenshot available/i
+      );
     });
   });
 
@@ -190,5 +204,77 @@ describe('Theme initialization', () => {
     expect(html).not.toMatch(/document\.body/);
     expect(html).toMatch(/documentElement\.setAttribute\(\s*'data-theme'/);
     expect(html).toMatch(/html\[data-theme='dark'\]/);
+  });
+});
+
+describe('Layout landmarks', () => {
+  test('exposes navigation, main and footer landmarks', () => {
+    renderAt('/');
+
+    expect(screen.getByRole('navigation', { name: 'Main' })).toBeInTheDocument();
+    expect(screen.getByRole('main')).toHaveAttribute('id', 'main-content');
+    expect(screen.getByRole('contentinfo')).toBeInTheDocument();
+  });
+
+  test('offers a skip link that targets the main landmark', () => {
+    renderAt('/');
+
+    const skipLink = screen.getByRole('link', {
+      name: 'Skip to main content',
+    });
+    const main = screen.getByRole('main');
+
+    expect(main).toHaveAttribute('id', 'main-content');
+    expect(skipLink).toHaveAttribute('href', `#${main.id}`);
+  });
+
+  test('moves focus to the main landmark when the skip link is activated', () => {
+    renderAt('/');
+
+    const skipLink = screen.getByRole('link', {
+      name: 'Skip to main content',
+    });
+    const main = screen.getByRole('main');
+
+    skipLink.focus();
+    fireEvent.click(skipLink);
+
+    expect(main).toHaveAttribute('tabindex', '-1');
+    expect(main).toHaveFocus();
+  });
+
+  test('exposes the mobile navigation expanded state and controlled panel', () => {
+    renderAt('/');
+
+    const toggle = screen.getByRole('button', { name: 'Toggle navigation' });
+    const navigation = screen.getByRole('navigation', { name: 'Main' });
+
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    expect(toggle).toHaveAttribute('aria-controls', 'basic-navbar-nav');
+    expect(within(navigation).getByRole('link', { name: 'Projects' }))
+      .toHaveAttribute('href', '/projects');
+
+    fireEvent.click(toggle);
+
+    expect(toggle).toHaveAttribute('aria-expanded', 'true');
+
+    fireEvent.click(toggle);
+
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  test('marks only the active navigation destination as current', () => {
+    renderAt('/projects');
+
+    expect(screen.getByRole('link', { name: 'Projects' })).toHaveAttribute(
+      'aria-current',
+      'page'
+    );
+    expect(screen.getByRole('link', { name: 'About Me' })).not.toHaveAttribute(
+      'aria-current'
+    );
+    expect(screen.getByRole('link', { name: 'Contact' })).not.toHaveAttribute(
+      'aria-current'
+    );
   });
 });
