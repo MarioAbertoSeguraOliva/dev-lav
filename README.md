@@ -67,7 +67,7 @@ worker/
 
 - Node.js 18+ to run the application and tests (verified with Node 18.12.1)
 - npm
-- Node.js 22+ to run Wrangler 4.114.0 commands (`preview` and `deploy`), which is installed as a development dependency
+- Node.js 22+ to run Wrangler 4.156.0 commands (`preview` and `deploy`), which is installed as a development dependency
 
 Clone the repository:
 
@@ -175,8 +175,8 @@ npm run preview   # build, then serve locally with wrangler dev
 npm run deploy    # build, then deploy to production with wrangler deploy
 ```
 
-- `wrangler` 4.114.0 is pinned as a development dependency in `package.json` and `package-lock.json`.
-- Wrangler 4.114.0 requires Node.js 22+; the application itself still builds and tests on Node 18.12.1.
+- `wrangler` 4.156.0 is pinned as a development dependency in `package.json` and `package-lock.json`.
+- Wrangler 4.156.0 requires Node.js 22+; the application itself still builds and tests on Node 18.12.1.
 - `npm run preview` is local-only and does not upload or modify production.
 - `npm run deploy` targets production and requires an authenticated Wrangler session with access to the Cloudflare account that owns the `dev-lav` Worker.
 
