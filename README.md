@@ -182,11 +182,18 @@ npm run deploy    # build, then deploy to production with wrangler deploy
 
 Local validation is not production verification. Production was updated on 2026-10-30 and now runs commit `3945d53`:
 
-- Cloudflare deployment: `40e24b13-7703-4214-a19c-819c8ced0148`
+- Cloudflare version ID: `40e24b13-7703-4214-a19c-819c8ced0148`
 - Production assets: `main.e2bb35f2.js` and `main.dd0a6956.css`
-- Previous deployment: `05827336-c361-40c6-961b-01ad635fbf5b` (version ID `38209270-9992-482e-8179-350e6cc90b81`, commit `23a268f`)
 
-The live HTML, JavaScript, and CSS match the local build of commit `3945d53`, and the Worker routing behavior described above is active. This deployment included the P0 portfolio remediation: the DentalFlow card no longer links to a non-existent repository, the career timeline collapses to a single column below 768px, and theme initialization no longer touches `document.body` from the document head. It was deployed with Wrangler 4.114.0 on portable Node.js 22.23.4; the machine default remains Node.js 18.12.1.
+The live HTML, JavaScript, and CSS match the production build of commit `3945d53`, and the Worker routing behavior described above is active. Production verification confirmed that the new bundles are served, the previous JavaScript bundle is retired, application routes return the SPA shell, and missing asset paths return `404`.
+
+The P0 remediation is deployed and verified:
+
+- DentalFlow no longer links to a non-existent repository.
+- The career timeline uses the responsive layout.
+- Dark-mode initialization no longer accesses `document.body` before it exists.
+
+The deployment used portable Node.js 22.23.4; the machine's global Node.js remains 18.12.1.
 
 ---
 
