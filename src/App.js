@@ -8,14 +8,30 @@ import ProjectsPage from './pages/Projects';
 import ContactPage from './pages/Contact';
 import NotFoundPage from './pages/NotFound';
 
-function App() {
-  const [darkMode, setDarkMode] = useState(() => {
+const readStoredDarkMode = () => {
+  try {
     const saved = localStorage.getItem('darkMode');
-    return saved !== null ? JSON.parse(saved) : false;
-  });
+    return saved !== null && JSON.parse(saved) === true;
+  } catch (error) {
+    return false;
+  }
+};
+
+function App() {
+  const [darkMode, setDarkMode] = useState(readStoredDarkMode);
 
   useEffect(() => {
-    localStorage.setItem('darkMode', JSON.stringify(darkMode));
+    document.documentElement.setAttribute(
+      'data-theme',
+      darkMode ? 'dark' : 'light'
+    );
+
+    try {
+      localStorage.setItem('darkMode', JSON.stringify(darkMode));
+    } catch (error) {
+      // Storage can be unavailable (for example in privacy mode); the
+      // in-memory theme still works for this session.
+    }
   }, [darkMode]);
 
   const toggleTheme = () => setDarkMode((prev) => !prev);

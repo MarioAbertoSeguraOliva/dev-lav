@@ -1,0 +1,87 @@
+/* Career timeline layout.
+   Desktop: alternating cards around a centred vertical line.
+   Below 768px: a single column with the line on the left. */
+
+.timeline {
+  position: relative;
+  padding: 20px 0;
+}
+
+.timeline__line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  background-color: var(--timeline-line-color, #ccc);
+}
+
+.timeline__row {
+  position: relative;
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.timeline__row--left {
+  justify-content: flex-end;
+  padding-right: calc(50% + 20px);
+}
+
+.timeline__row--right {
+  justify-content: flex-start;
+  padding-left: calc(50% + 20px);
+}
+
+.timeline__dot {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--timeline-dot-ring, #fff);
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.timeline__card {
+  width: 100%;
+  max-width: 400px;
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--timeline-card-border, #e0e0e0);
+  border-radius: 12px;
+  background-color: var(--timeline-card-bg, #f8f9fa);
+  overflow-wrap: break-word;
+}
+
+.timeline__date {
+  margin: 0 0 10px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 767.98px) {
+  .timeline__line {
+    left: 6px;
+    transform: none;
+  }
+
+  .timeline__row,
+  .timeline__row--left,
+  .timeline__row--right {
+    justify-content: flex-start;
+    padding-left: 28px;
+    padding-right: 0;
+  }
+
+  .timeline__dot {
+    left: 7px;
+  }
+
+  .timeline__card {
+    max-width: none;
+    padding: 16px;
+  }
+}

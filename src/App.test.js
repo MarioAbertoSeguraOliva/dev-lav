@@ -12,6 +12,7 @@ const renderAt = (route) => {
 
 beforeEach(() => {
   localStorage.clear();
+  document.documentElement.removeAttribute('data-theme');
   window.history.pushState({}, '', '/');
 });
 
@@ -130,19 +131,64 @@ describe('Projects data and cards', () => {
     expect(screen.queryByText('Completed')).not.toBeInTheDocument();
   });
 
-  test('keeps the DentalFlow project and its GitHub link', () => {
+  test('shows DentalFlow without the broken public GitHub link', () => {
     renderAt('/projects');
 
-    const heading = screen.getByRole('heading', {
-      level: 2,
-      name: 'DentalFlow',
-    });
-    const card = heading.closest('[data-testid="project-card"]');
-
-    expect(card).not.toBeNull();
-    expect(within(card).getByRole('link', { name: /github/i })).toHaveAttribute(
-      'href',
-      'https://github.com/MarioAbertoSeguraOliva/dentalflow'
+    const cards = screen.getAllByTestId('project-card');
+    const card = cards.find((candidate) =>
+      within(candidate).queryByRole('heading', {
+        level: 2,
+        name: 'DentalFlow',
+      })
     );
+
+    expect(card).toBeDefined();
+    expect(within(card).queryByRole('link', { name: /github/i })).toBeNull();
+    expect(within(card).getByTestId('project-note')).toHaveTextContent(
+      'Source not public — details on request'
+    );
+    expect(screen.getAllByTestId('project-note')).toHaveLength(1);
+  });
+});
+
+describe('Theme initialization', () => {
+  test('applies a stored dark preference to the document', () => {
+    localStorage.setItem('darkMode', 'true');
+
+    renderAt('/');
+
+    expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
+  });
+
+  test('falls back to light when the stored value is invalid', () => {
+    localStorage.setItem('darkMode', '{not-json');
+
+    expect(() => renderAt('/')).not.toThrow();
+    expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'Mario Segura' })
+    ).toBeInTheDocument();
+  });
+
+  test('persists theme toggles and updates the document theme', () => {
+    renderAt('/');
+
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Switch to dark mode' })
+    );
+
+    expect(localStorage.getItem('darkMode')).toBe('true');
+    expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
+  });
+
+  test('index.html initializes the theme without touching document.body', () => {
+    const html = fs.readFileSync(
+      path.join(process.cwd(), 'public', 'index.html'),
+      'utf8'
+    );
+
+    expect(html).not.toMatch(/document\.body/);
+    expect(html).toMatch(/documentElement\.setAttribute\(\s*'data-theme'/);
+    expect(html).toMatch(/html\[data-theme='dark'\]/);
   });
 });
