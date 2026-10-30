@@ -227,4 +227,54 @@ describe('Layout landmarks', () => {
     expect(main).toHaveAttribute('id', 'main-content');
     expect(skipLink).toHaveAttribute('href', `#${main.id}`);
   });
+
+  test('moves focus to the main landmark when the skip link is activated', () => {
+    renderAt('/');
+
+    const skipLink = screen.getByRole('link', {
+      name: 'Skip to main content',
+    });
+    const main = screen.getByRole('main');
+
+    skipLink.focus();
+    fireEvent.click(skipLink);
+
+    expect(main).toHaveAttribute('tabindex', '-1');
+    expect(main).toHaveFocus();
+  });
+
+  test('exposes the mobile navigation expanded state and controlled panel', () => {
+    renderAt('/');
+
+    const toggle = screen.getByRole('button', { name: 'Toggle navigation' });
+    const navigation = screen.getByRole('navigation', { name: 'Main' });
+
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    expect(toggle).toHaveAttribute('aria-controls', 'basic-navbar-nav');
+    expect(within(navigation).getByRole('link', { name: 'Projects' }))
+      .toHaveAttribute('href', '/projects');
+
+    fireEvent.click(toggle);
+
+    expect(toggle).toHaveAttribute('aria-expanded', 'true');
+
+    fireEvent.click(toggle);
+
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  test('marks only the active navigation destination as current', () => {
+    renderAt('/projects');
+
+    expect(screen.getByRole('link', { name: 'Projects' })).toHaveAttribute(
+      'aria-current',
+      'page'
+    );
+    expect(screen.getByRole('link', { name: 'About Me' })).not.toHaveAttribute(
+      'aria-current'
+    );
+    expect(screen.getByRole('link', { name: 'Contact' })).not.toHaveAttribute(
+      'aria-current'
+    );
+  });
 });

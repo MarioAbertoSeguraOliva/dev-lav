@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useId, useState } from 'react';
 import { Github } from 'react-bootstrap-icons';
 import { badgeColors, getReadableTextColor } from '../constants/theme';
 import ProjectArtwork from './ProjectArtwork';
@@ -45,6 +45,7 @@ const getStatusLabel = (status) => {
 };
 
 function ProjectCard({ project, darkMode }) {
+  const detailsId = useId();
   const [showMore, setShowMore] = useState(false);
   const initialImage = project.image || FALLBACK_PROJECT_IMAGE;
   const [imageSrc, setImageSrc] = useState(initialImage);
@@ -291,6 +292,9 @@ function ProjectCard({ project, darkMode }) {
           )}
 
           <button
+            type="button"
+            aria-expanded={showMore}
+            aria-controls={detailsId}
             onClick={() => setShowMore(!showMore)}
             style={{
               flex: 1,
@@ -307,19 +311,19 @@ function ProjectCard({ project, darkMode }) {
           </button>
         </div>
 
-        {showMore && (
-          <div
-            style={{
-              marginTop: '20px',
-              borderTop: `1px solid ${borderColor}`,
-              paddingTop: '15px',
-              lineHeight: '1.6',
-              textAlign: 'left',
-            }}
-          >
-            {project.additionalInfo}
-          </div>
-        )}
+        <div
+          id={detailsId}
+          hidden={!showMore}
+          style={{
+            marginTop: '20px',
+            borderTop: `1px solid ${borderColor}`,
+            paddingTop: '15px',
+            lineHeight: '1.6',
+            textAlign: 'left',
+          }}
+        >
+          {project.additionalInfo}
+        </div>
       </div>
     </div>
   );
