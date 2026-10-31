@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -21,7 +21,7 @@ function Header({ darkMode, toggleTheme }) {
       style={{ boxShadow: '0 2px 4px rgba(0,0,0,0.1)', zIndex: 999 }}
     >
       <Container>
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand as={NavLink} to="/" end>
           Mario Segura
         </Navbar.Brand>
         <Navbar.Toggle
