@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, within } from '@testing-library/react';
 import fs from 'fs';
 import path from 'path';
-import App from './App';
+import App, { getRouteMetadata } from './App';
 import projects from './data/projects.json';
 
 const renderAt = (route) => {
@@ -20,6 +20,7 @@ describe('Home page', () => {
   test('renders the home route', () => {
     renderAt('/');
 
+    expect(document.title).toBe('Home — Mario Segura | Software Engineer');
     expect(
       screen.getByRole('heading', { level: 1, name: 'Mario Segura' })
     ).toBeInTheDocument();
@@ -31,11 +32,24 @@ describe('Home page', () => {
     ).toBeGreaterThan(0);
   });
 
+  test('marks the home brand as the current page without changing its class', () => {
+    renderAt('/');
+
+    expect(screen.getByRole('link', { name: 'Mario Segura' })).toHaveAttribute(
+      'aria-current',
+      'page'
+    );
+    expect(screen.getByRole('link', { name: 'Mario Segura' })).toHaveClass(
+      'navbar-brand'
+    );
+  });
+
   test('navigates to Projects with a client-side link', () => {
     renderAt('/');
 
     fireEvent.click(screen.getByRole('link', { name: 'View Projects' }));
 
+    expect(document.title).toBe('Projects — Mario Segura');
     expect(
       screen.getByRole('heading', { level: 1, name: 'My Projects' })
     ).toBeInTheDocument();
@@ -53,19 +67,30 @@ describe('Home page', () => {
       screen.getByRole('heading', { level: 2, name: 'About Me' })
     ).toBeInTheDocument();
     expect(window.location.pathname).toBe('/about');
+    expect(document.title).toBe('About — Mario Segura');
+  });
+
+  test('updates the title for a valid route with a trailing slash', () => {
+    renderAt('/projects/');
+
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'My Projects' })
+    ).toBeInTheDocument();
+    expect(document.title).toBe('Projects — Mario Segura');
   });
 });
 
 describe('Direct route rendering', () => {
   test.each([
-    ['/projects', 'My Projects'],
-    ['/about', 'About Me'],
-    ['/contact', 'Get In Touch'],
-  ])('renders %s without a prior client-side navigation', (route, heading) => {
+    ['/projects', 'My Projects', 'Projects — Mario Segura'],
+    ['/about', 'About Me', 'About — Mario Segura'],
+    ['/contact', 'Get In Touch', 'Contact — Mario Segura'],
+  ])('renders %s without a prior client-side navigation', (route, heading, title) => {
     renderAt(route);
 
     expect(screen.getByRole('heading', { name: heading })).toBeInTheDocument();
     expect(window.location.pathname).toBe(route);
+    expect(document.title).toBe(title);
   });
 
   test('renders the React 404 page for an unknown route', () => {
@@ -77,6 +102,41 @@ describe('Direct route rendering', () => {
     expect(
       screen.getByText(/the page you're looking for doesn't exist/i)
     ).toBeInTheDocument();
+    expect(document.title).toBe('Page Not Found | Mario Segura');
+    expect(getRouteMetadata('/does-not-exist')).toEqual({
+      title: 'Page Not Found | Mario Segura',
+      noindex: true,
+    });
+  });
+
+  test('updates route metadata during client-side navigation from an unknown route', () => {
+    renderAt('/does-not-exist');
+
+    expect(document.title).toBe('Page Not Found | Mario Segura');
+    fireEvent.click(screen.getByRole('link', { name: 'Mario Segura' }));
+
+    expect(document.title).toBe('Home — Mario Segura | Software Engineer');
+    expect(getRouteMetadata(window.location.pathname).noindex).toBeUndefined();
+    expect(screen.getByRole('link', { name: 'Mario Segura' })).toHaveAttribute(
+      'aria-current',
+      'page'
+    );
+  });
+
+  test('normalizes valid route paths when resolving metadata', () => {
+    expect(getRouteMetadata('/PROJECTS/')).toEqual({
+      title: 'Projects — Mario Segura',
+    });
+  });
+
+  test('updates the title when navigating between valid routes', () => {
+    renderAt('/projects');
+
+    fireEvent.click(screen.getByRole('link', { name: 'About Me' }));
+    expect(document.title).toBe('About — Mario Segura');
+
+    fireEvent.click(screen.getByRole('link', { name: 'Contact' }));
+    expect(document.title).toBe('Contact — Mario Segura');
   });
 });
 

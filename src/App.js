@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from 'react-router-dom';
 import Layout from './components/Layout';
 import ErrorBoundary from './components/ErrorBoundary';
 import HomePage from './pages/Home';
@@ -7,6 +12,46 @@ import AboutPage from './pages/About';
 import ProjectsPage from './pages/Projects';
 import ContactPage from './pages/Contact';
 import NotFoundPage from './pages/NotFound';
+
+const routeMetadata = {
+  '/': { title: 'Home — Mario Segura | Software Engineer' },
+  '/projects': { title: 'Projects — Mario Segura' },
+  '/about': { title: 'About — Mario Segura' },
+  '/contact': { title: 'Contact — Mario Segura' },
+};
+
+const notFoundMetadata = {
+  title: 'Page Not Found | Mario Segura',
+  noindex: true,
+};
+
+export const getRouteMetadata = (pathname) => {
+  const routePath = pathname.toLowerCase().replace(/\/+$/, '') || '/';
+  return routeMetadata[routePath] || notFoundMetadata;
+};
+
+function RouteMetadata() {
+  const { pathname } = useLocation();
+  const { title, noindex } = getRouteMetadata(pathname);
+
+  useEffect(() => {
+    document.title = title;
+
+    const robotsMeta = document.querySelector('meta[name="robots"]');
+    if (noindex) {
+      const meta = robotsMeta || document.createElement('meta');
+      meta.name = 'robots';
+      meta.content = 'noindex, follow';
+      if (!robotsMeta) {
+        document.head.appendChild(meta);
+      }
+    } else if (robotsMeta) {
+      robotsMeta.remove();
+    }
+  }, [title, noindex]);
+
+  return null;
+}
 
 const readStoredDarkMode = () => {
   try {
@@ -39,6 +84,7 @@ function App() {
   return (
     <ErrorBoundary>
       <Router>
+        <RouteMetadata />
         <Layout darkMode={darkMode} toggleTheme={toggleTheme}>
           <Routes>
             <Route path="/" element={<HomePage darkMode={darkMode} />} />
